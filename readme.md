@@ -13,4 +13,5 @@ Type `python -m pip install -U pip`
 Type `pip install -r requirements.txt`
 # Running
 In order to run script type `python main.py %input_path% %output_path%`, where `%input_path%` is a path to source image and `%output_path%` is a path where to save resulting image. Both incluiding file extension.
+To process multiple images at once use folders for `%input_path%` and `%output_path%`. Script will use original filename when saving to output.
 For additional parameters get help by typing `python main.py -h`

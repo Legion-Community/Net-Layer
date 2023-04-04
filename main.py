@@ -1,5 +1,6 @@
 import numpy as np
 import argparse
+import os
 
 from PIL import Image
 
@@ -133,7 +134,7 @@ def save_img(image, path):
     img.save(path)
 
 
-def main(
+def process_image(
     input: str,
     output: str,
     upscale_x: int,
@@ -149,6 +150,7 @@ def main(
     y_start: int
 ):
     img = load_img(input)
+    print(f'Started processing image {input}')
     if upscale_x != 1 and upscale_y != 1:
         print('Upscaling image...')
         img = upscale_img(img, upscale_y, upscale_x)
@@ -176,14 +178,69 @@ def main(
     print(f'Image saved: {output}')
 
 
+def main(
+    input: str,
+    output: str,
+    upscale_x: int,
+    upscale_y: int,
+    pixel_height: int,
+    pixel_width: int,
+    line_color: list[int],
+    line_width: int,
+    nth_line: int | None,
+    nth_line_color: list[int] | None,
+    nth_line_width: int | None,
+    x_start: int,
+    y_start: int
+):
+    if os.path.isfile(input) and os.path.isfile(output):
+        process_image(
+            input,
+            output,
+            upscale_x,
+            upscale_y,
+            pixel_height,
+            pixel_width,
+            line_color,
+            line_width,
+            nth_line,
+            nth_line_color,
+            nth_line_width,
+            x_start,
+            y_start
+        )
+    elif os.path.isdir(input) and os.path.isdir(output):
+        for filename in os.listdir(input):
+            input_str = os.path.join(input, filename)
+            output_str = os.path.join(output, filename)
+            process_image(
+                input_str,
+                output_str,
+                upscale_x,
+                upscale_y,
+                pixel_height,
+                pixel_width,
+                line_color,
+                line_width,
+                nth_line,
+                nth_line_color,
+                nth_line_width,
+                x_start,
+                y_start
+            )
+    else:
+        print('Input and output both must be either file or directory')
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Utility to lay net over pixel image'
     )
     parser.add_argument('input', type=str,
-                        help='path to input image (including extension)')
+                        help='path to input image (including extension) or to folder with images')
     parser.add_argument('output', type=str,
-                        help='path to save image (including extension)')
+                        help='path to save image (including extension) or to folder where to save images')
     parser.add_argument('-ux', '--upscale_x', default=8, type=int)
     parser.add_argument('-uy', '--upscale_y', default=8, type=int)
     parser.add_argument('-ph', '--pixel_height', default=1, type=int,
