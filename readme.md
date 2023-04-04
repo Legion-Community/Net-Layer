@@ -1,6 +1,7 @@
 # Installation
 ## Prerequisites
 - Python 3.10 or higher (download from [here](https://www.python.org/downloads/))
+- Git (download from [here](https://git-scm.com/downloads))
 ## Getting code
 Clone code wherever you want with command `git clone https://github.com/temchik00/Net-Layer.git`
 Go to folder with cloned code
