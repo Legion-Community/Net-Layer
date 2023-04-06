@@ -285,7 +285,7 @@ def main(
         nth_pixel = 10
         special_line_color = line_color
         special_line_width = line_width
-    if os.path.isfile(input) and os.path.isfile(output):
+    if os.path.isfile(input) and (not os.path.exists(output) or os.path.isfile(output)):
         image = load_img(input)
         image = process_image(
             image,
