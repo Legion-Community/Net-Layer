@@ -4,7 +4,6 @@ import os
 
 from PIL import Image
 from numba import njit, uint8, int16, int32
-from time import time
 
 
 def load_img(src):
@@ -282,7 +281,6 @@ def main(
     x_start: int,
     y_start: int
 ):
-    t = time()
     if nth_pixel is None:
         nth_pixel = 10
         special_line_color = line_color
@@ -326,7 +324,6 @@ def main(
     else:
         print('Input and output both must be either file or directory')
 
-    print(time() - t)
 
 
 
